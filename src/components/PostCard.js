@@ -7,6 +7,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
+import { Link } from "react-router-dom";
+
 const PostCard = (props) => {
 
     return (
@@ -28,7 +30,9 @@ const PostCard = (props) => {
             </CardContent>
             <CardActions>
                 <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
+                <Link to="/details">
+                    <Button size="small">Learn More</Button>
+                </Link>
             </CardActions>
         </Card>
     );
