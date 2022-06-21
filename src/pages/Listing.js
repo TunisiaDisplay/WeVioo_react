@@ -167,7 +167,9 @@ const Listing = () => {
     }, [page]);
 
     const handlePageChange = (event, value) => {
-        setPage(value);
+        //api page start from 0 but pagination value start from 1
+        // we retrive 1 to not skip any page
+        setPage(value-1);
       };
 
     return (
