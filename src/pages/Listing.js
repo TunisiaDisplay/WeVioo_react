@@ -16,14 +16,18 @@ const Listing = () => {
     const [postList, setPostList] = useState({});
     const [page, setPage] = useState(0);
 
+    const [selectedUser, setSelectedUser] = useState();
+
     const limit = 6;
-    const totalPageNumber = postList.total/limit;
+    const totalPageNumber = (postList.total || 0) / limit;
 
     useEffect(() => {
         // declare the async data fetching function
         const getPosts = async () => {
+
+            const api_targert = selectedUser ? `/user/${selectedUser}/post` : '/post/' ;
             // get the data from the api
-            const response = await dummyApi.get('/post/', {
+            const response = await dummyApi.get(api_targert, {
                 params: {
                     page,
                     limit
@@ -41,13 +45,22 @@ const Listing = () => {
             .catch(function (error) {
                 console.log(error);
             });
-    }, [page]);
+    }, [page,selectedUser]);
 
     const handlePageChange = (event, value) => {
         //api page start from 0 but pagination value start from 1
         // we retrive 1 to not skip any page
-        setPage(value-1);
-      };
+        setPage(value - 1);
+    };
+
+    
+    // const handleUserChange = (event, value)=>{
+    //     console.log("______user changed______");
+    //     console.log(event.target.value);
+    //     //console.log(event);
+    //     //console.log(value);
+    // };
+
 
     return (
         <Container maxWidth="lg">
@@ -58,6 +71,7 @@ const Listing = () => {
                 <Grid item xs={12}>
                     <SimpleSelect
                         name="Utilisateur"
+                        onChangeHandler={setSelectedUser}
                     />
 
                     <MultipleSelect
@@ -74,7 +88,7 @@ const Listing = () => {
                         :
                         postList.data.map(post => {
                             return (
-                                <Grid item xs={8} md={5} lg={4}>
+                                <Grid item key={post.id} xs={8} md={5} lg={4}>
                                     <PostCard post={post} />
                                 </Grid>
                             );
