@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container } from "@mui/system";
 import Grid from '@mui/material/Grid';
 import Pagination from '@mui/material/Pagination';
-
+import CircularProgress from '@mui/material/CircularProgress';
 
 import PostCard from "../components/PostCard";
 import MultipleSelect from "../components/MultipleSelect";
 import SimpleSelect from "../components/SimpleSelect";
 
+import dummyApi from "../api/dummyApi";
 
+/*
 const postList = {
     "data": [
         {
@@ -130,10 +132,38 @@ const postList = {
     "page": 0,
     "limit": 6
 };
-
+*/
 
 const Listing = () => {
 
+    const [postList, setPostList] = useState({});
+    const [page, setPage] = useState(0);
+
+    const limit = 6;
+
+    useEffect(() => {
+        // declare the async data fetching function
+        const getPosts = async () => {
+            // get the data from the api
+            const response = await dummyApi.get('/post/', {
+                params: {
+                    page,
+                    limit
+                }
+            });
+
+            // set state with the result
+            setPostList(response.data);
+            //setTotal(response.data.total);
+            console.log(JSON.stringify(response.data));
+        }
+
+        // call the function && make sure to catch any error
+        getPosts()
+            .catch(function (error) {
+                console.log(error);
+            });
+    }, [page])
 
     return (
         <Container maxWidth="lg">
@@ -152,13 +182,19 @@ const Listing = () => {
                 </Grid>
 
                 {
-                    postList.data.map(post => {
-                        return (
-                            <Grid item xs={8} md={5} lg={4}>
-                                <PostCard post={post} />
-                            </Grid>
-                        );
-                    })
+                    // show infinite progress bar when the list is empty
+                    !postList.data ?
+                        <Grid item xs={12}>
+                            <CircularProgress />
+                        </Grid>
+                        :
+                        postList.data.map(post => {
+                            return (
+                                <Grid item xs={8} md={5} lg={4}>
+                                    <PostCard post={post} />
+                                </Grid>
+                            );
+                        })
                 }
 
                 <Grid item xs={12}>
