@@ -163,7 +163,11 @@ const Listing = () => {
             .catch(function (error) {
                 console.log(error);
             });
-    }, [page])
+    }, [page]);
+
+    const handlePageChange = (event, value) => {
+        setPage(value);
+      };
 
     return (
         <Container maxWidth="lg">
@@ -198,7 +202,7 @@ const Listing = () => {
                 }
 
                 <Grid item xs={12}>
-                    <Pagination count={10} color="primary" />
+                    <Pagination count={10} color="primary" onChange={handlePageChange} />
                 </Grid>
 
             </Grid>
