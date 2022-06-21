@@ -140,6 +140,7 @@ const Listing = () => {
     const [page, setPage] = useState(0);
 
     const limit = 6;
+    const totalPageNumber = postList.total/limit;
 
     useEffect(() => {
         // declare the async data fetching function
@@ -202,7 +203,7 @@ const Listing = () => {
                 }
 
                 <Grid item xs={12}>
-                    <Pagination count={10} color="primary" onChange={handlePageChange} />
+                    <Pagination count={Math.floor(totalPageNumber)} color="primary" onChange={handlePageChange} />
                 </Grid>
 
             </Grid>
