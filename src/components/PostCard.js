@@ -49,7 +49,7 @@ const PostCard = (props) => {
                 {
                     post.tags.map(tag => {
                         return(
-                            <Button LinkComponent={Link} to={"/details"} size="small">{tag}</Button>
+                            <Button key={tag} LinkComponent={Link} to={"/details"} size="small">{tag}</Button>
                         )
                     })
                 }

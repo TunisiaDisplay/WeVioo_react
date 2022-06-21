@@ -36,8 +36,7 @@ const Listing = () => {
 
             // set state with the result
             setPostList(response.data);
-            //setTotal(response.data.total);
-            console.log(JSON.stringify(response.data));
+            //console.log(JSON.stringify(response.data));
         }
 
         // call the function && make sure to catch any error
