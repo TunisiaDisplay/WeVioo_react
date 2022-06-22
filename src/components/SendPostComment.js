@@ -1,10 +1,22 @@
-import React from "react";
+import React, {useState } from "react";
 
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import TextField from '@mui/material/TextField';
 
-
 const SendPostComment = (props) => {
+
+    const [msg, setMsg] = useState("");
+
+    const onChangeHandler = (event) => {
+        setMsg(event.target.value);
+    }
+
+    const sendCommentHandler = () => {
+        console.log('____send comment___');
+        console.log(msg);
+    }
+
+
     return (
         <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -13,8 +25,10 @@ const SendPostComment = (props) => {
                     label="Multiline"
                     multiline
                     rows={4}
-                    defaultValue="Default Value"
+                    value={msg}
+                    onChange={onChangeHandler}
                 />
+                <Button onClick={sendCommentHandler} >send</Button>
             </Grid>
         </Grid >
     );
