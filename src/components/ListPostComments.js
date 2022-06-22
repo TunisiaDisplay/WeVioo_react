@@ -1,13 +1,49 @@
-import React from "react";
-import { Grid } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+
+
+import dummyApi from "../api/dummyApi";
 
 const ListPostComments = (props) => {
+
+    const { id } = props;
+    const [commentsList, setCommentsList] = useState([]);
+
+    useEffect(() => {
+        const getComments = async () => {
+            const response = await dummyApi.get(`/post/${id}/comment`);
+
+            // set state with the result
+            setCommentsList(response.data);
+            console.log(JSON.stringify(response.data));
+        }
+
+        getComments()
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    }, [id]);
+
+
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <text>List of comments</text>
-            </Grid>
-        </Grid>
+        <Stack spacing={2}>
+            {
+                !commentsList.data ?
+                    <Paper>
+                        List of comments is loading ...
+                    </Paper>
+                    :
+                    commentsList.data.map(c => {
+                        return (
+                            <Paper key={c.id}>
+                                {c.message}
+                            </Paper>
+                        )
+                    })
+            }
+        </Stack>
     );
 }
 
