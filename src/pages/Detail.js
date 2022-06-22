@@ -8,6 +8,8 @@ import SendIcon from '@mui/icons-material/Send';
 import dummyApi from "../api/dummyApi";
 import PostDetails from "../components/PostDetails";
 import Loading from "../components/Loading";
+import ListPostComments from "../components/ListPostComments";
+import SendPostComment from "../components/SendPostComment";
 
 
 const Detail = () => {
@@ -41,7 +43,7 @@ const Detail = () => {
                 listing page
             </h1>
 
-            <Button onClick={() => navigate(-1,{replace:true})} variant="contained" endIcon={<SendIcon />}>
+            <Button onClick={() => navigate(-1, { replace: true })} variant="contained" endIcon={<SendIcon />}>
                 Back
             </Button>
 
@@ -49,7 +51,11 @@ const Detail = () => {
                 !postDetails.id ?
                     <Loading />
                     :
-                    <PostDetails details={postDetails} />
+                    <>
+                        <PostDetails details={postDetails} />
+                        <ListPostComments />
+                        <SendPostComment />
+                    </>
             }
 
 
