@@ -2,7 +2,7 @@ import React from "react";
 
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import TextField from '@mui/material/TextField';
+
 
 
 const PostDetails = (props) => {
@@ -45,18 +45,8 @@ const PostDetails = (props) => {
                 <text>{postDetails.owner.firstName}</text>
                 <text>{postDetails.owner.lastName}</text>
             </Grid>
-            <Grid item xs={12}>
-                <TextField
-                    id="outlined-multiline-static"
-                    label="Multiline"
-                    multiline
-                    rows={4}
-                    defaultValue="Default Value"
-                />
-            </Grid>
-            <Grid item xs={12}>
-                <text>List of comments</text>
-            </Grid>
+            
+            
         </Grid>
 
     );
