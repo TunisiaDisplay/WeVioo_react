@@ -53,8 +53,8 @@ const Detail = () => {
                     :
                     <>
                         <PostDetails details={postDetails} />
-                        <ListPostComments />
-                        <SendPostComment />
+                        <ListPostComments id={postDetails.id} />
+                        <SendPostComment id={postDetails.id} />
                     </>
             }
 
