@@ -33,9 +33,10 @@ export default function MultipleSelect(props) {
       // tag list is very long
       // put all of them on simple component can give a bad UX
       // we can put just a part of them on our component
+      // some tags start with white spaces we use trim fuction to delete them
       // some tags values are very long string we can take just the first 15 caracter for more better UX 
       // and we add an item that open a specific page to show all tags
-      const tagsPart = response.data.data.slice(2, 8).map(tag => tag.substr(0, 15));
+      const tagsPart = response.data.data.slice(2, 8).map(tag => tag.trim().substr(0, 15));
 
       // set state with the result
       setTags(tagsPart);
@@ -69,6 +70,10 @@ export default function MultipleSelect(props) {
         // On autofill we get a stringified value.
         typeof value === 'string' ? value.split(',') : value,
       );
+
+
+      // change the selected tags on parent component
+      props.onChangeHandler(value);
   };
 
   return (
