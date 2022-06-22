@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 import { Container } from "@mui/system";
+import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
 
 import dummyApi from "../api/dummyApi";
 import PostDetails from "../components/PostDetails";
@@ -11,6 +13,7 @@ import Loading from "../components/Loading";
 const Detail = () => {
 
     let params = useParams();
+    const navigate = useNavigate();
 
     const postId = params.id;
     const [postDetails, setPostDetails] = useState({});
@@ -37,6 +40,10 @@ const Detail = () => {
             <h1>
                 listing page
             </h1>
+
+            <Button onClick={() => navigate(-1,{replace:true})} variant="contained" endIcon={<SendIcon />}>
+                Back
+            </Button>
 
             {
                 !postDetails.id ?
