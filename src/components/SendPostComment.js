@@ -1,7 +1,10 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 
 import { Button, Grid } from "@mui/material";
 import TextField from '@mui/material/TextField';
+
+import dummyApi from "../api/dummyApi";
+
 
 const SendPostComment = (props) => {
 
@@ -12,8 +15,22 @@ const SendPostComment = (props) => {
     }
 
     const sendCommentHandler = () => {
-        console.log('____send comment___');
-        console.log(msg);
+        //console.log('____send comment___');
+        //console.log(msg);
+
+        const saveComment = async () => {
+            await dummyApi.post("/comment/create", {
+                "message": msg,
+                "owner": "60d0fe4f5311236168a109ca",
+                "post": props.id
+            });
+
+            setMsg("");
+            console.log("comment added with success");
+        }
+
+        saveComment()
+            .catch(error => console.log(error));
     }
 
 
