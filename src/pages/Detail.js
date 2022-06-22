@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Container } from "@mui/system";
-import Grid from '@mui/material/Grid';
-
-import CircularProgress from '@mui/material/CircularProgress';
 
 import dummyApi from "../api/dummyApi";
 import PostDetails from "../components/PostDetails";
+import Loading from "../components/Loading";
 
 
 const Detail = () => {
@@ -42,11 +40,7 @@ const Detail = () => {
 
             {
                 !postDetails.id ?
-                    <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <CircularProgress />
-                        </Grid>
-                    </Grid>
+                    <Loading />
                     :
                     <PostDetails details={postDetails} />
             }
@@ -58,4 +52,3 @@ const Detail = () => {
 }
 
 export default Detail;
-
