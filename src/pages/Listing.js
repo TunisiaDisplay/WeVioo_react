@@ -9,6 +9,7 @@ import MultipleSelect from "../components/MultipleSelect";
 import SimpleSelect from "../components/SimpleSelect";
 
 import dummyApi from "../api/dummyApi";
+import Loading from "../components/Loading";
 
 
 const Listing = () => {
@@ -126,9 +127,7 @@ const Listing = () => {
                 {
                     // show infinite progress bar when the list is empty
                     !postList.data ?
-                        <Grid item xs={12}>
-                            <CircularProgress />
-                        </Grid>
+                        <Loading />
                         :
                         postList.data.map(post => {
                             return (
