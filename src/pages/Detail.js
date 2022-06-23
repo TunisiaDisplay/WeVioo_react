@@ -19,6 +19,7 @@ const Detail = () => {
 
     const postId = params.id;
     const [postDetails, setPostDetails] = useState({});
+    const [reload, setReload] = useState(0);
 
     useEffect(() => {
         const getPost = async () => {
@@ -53,12 +54,13 @@ const Detail = () => {
                     :
                     <>
                         <PostDetails details={postDetails} />
-                        <ListPostComments id={postDetails.id} />
-                        <SendPostComment id={postDetails.id} />
+                        <ListPostComments id={postDetails.id} reload={reload} />
+                        <SendPostComment
+                            id={postDetails.id}
+                            onSuccess={setReload}
+                        />
                     </>
             }
-
-
         </Container>
 
     );

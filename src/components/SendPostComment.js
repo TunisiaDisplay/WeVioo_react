@@ -27,6 +27,10 @@ const SendPostComment = (props) => {
 
             setMsg("");
             console.log("comment added with success");
+
+            // simple solution to reload the list of comment on parent componet
+            // for better UX
+            props.onSuccess(Math.random()*100);
         }
 
         saveComment()
