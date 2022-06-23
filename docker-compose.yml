@@ -1,0 +1,10 @@
+version: '3.2'
+services:
+  wevioo_react:
+    build:
+      context: .
+      dockerfile: 'Dockerfile'
+    ports:
+      - '80:80'
+    volumes:
+      - ./:/frontend
