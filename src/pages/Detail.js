@@ -1,85 +1,69 @@
-import React from "react";
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import TextField from '@mui/material/TextField';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-const static_post = {
-    "id": "60d21b4667d0d8992e610c85",
-    "image": "https://img.dummyapi.io/photo-1564694202779-bc908c327862.jpg",
-    "likes": 43,
-    "link": "https://www.instagram.com/teddyosterblomphoto/",
-    "tags": [
-        "animal",
-        "dog",
-        "golden retriever"
-    ],
-    "text": "adult Labrador retriever",
-    "publishDate": "2020-05-24T14:53:17.598Z",
-    "owner": {
-        "id": "60d0fe4f5311236168a109ca",
-        "title": "ms",
-        "firstName": "Sara",
-        "lastName": "Andersen",
-        "picture": "https://randomuser.me/api/portraits/women/58.jpg"
-    }
-};
+import { Container } from "@mui/system";
+import Button from '@mui/material/Button';
+import SendIcon from '@mui/icons-material/Send';
 
+import dummyApi from "../api/dummyApi";
+import PostDetails from "../components/PostDetails";
+import Loading from "../components/Loading";
+import ListPostComments from "../components/ListPostComments";
+import SendPostComment from "../components/SendPostComment";
 
 
 const Detail = () => {
 
+    let params = useParams();
+    const navigate = useNavigate();
+
+    const postId = params.id;
+    const [postDetails, setPostDetails] = useState({});
+    const [reload, setReload] = useState(0);
+
+    useEffect(() => {
+        const getPost = async () => {
+            const response = await dummyApi.get(`/post/${postId}`);
+
+            // set state with the result
+            setPostDetails(response.data);
+            console.log(JSON.stringify(response.data));
+        }
+
+        getPost()
+            .catch(function (error) {
+                console.log(error);
+            });
+
+
+    }, [postId]);
+
     return (
-        <Grid container spacing={2}>
-            <Grid item xs={12}>
-                <h1>
-                    detail page
-                </h1>
-            </Grid>
-            <Grid item xs={12}>
-                <Paper>
-                    <img src={static_post.image} alt="" />
-                </Paper>
-            </Grid>
-            <Grid item xs={6}>
-                <text>{static_post.likes}</text>
-            </Grid>
-            <Grid item xs={6}>
-                <text>{static_post.publishDate}</text>
-            </Grid>
-            <Grid item xs={12}>
-                <text>{static_post.text}</text>
-            </Grid>
-            <Grid item xs={12}>
-                {
-                    static_post.tags.map(tag => {
-                        return (
-                            <text>{tag}</text>
-                        )
-                    })
-                }
-            </Grid>
-            <Grid item xs={12}>
-                <img src={static_post.owner.picture} alt="" />
-                <text>{static_post.owner.title}</text>
-                <text>{static_post.owner.firstName}</text>
-                <text>{static_post.owner.lastName}</text>
-            </Grid>
-            <Grid item xs={12}>
-                <TextField
-                    id="outlined-multiline-static"
-                    label="Multiline"
-                    multiline
-                    rows={4}
-                    defaultValue="Default Value"
-                />
-            </Grid>
-            <Grid item xs={12}>
-                <text>List of comments</text>
-            </Grid>
-        </Grid>
+        <Container maxWidth="lg">
+            <h1>
+                listing page
+            </h1>
+
+            <Button onClick={() => navigate(-1, { replace: true })} variant="contained" endIcon={<SendIcon />}>
+                Back
+            </Button>
+
+            {
+                !postDetails.id ?
+                    <Loading />
+                    :
+                    <>
+                        <PostDetails details={postDetails} />
+                        <ListPostComments id={postDetails.id} reload={reload} />
+                        <SendPostComment
+                            id={postDetails.id}
+                            onSuccess={setReload}
+                        />
+                    </>
+            }
+        </Container>
 
     );
 }
 
 export default Detail;
-

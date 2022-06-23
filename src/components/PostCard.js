@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -12,7 +13,7 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
-import { Link } from "react-router-dom";
+
 
 const PostCard = (props) => {
 
@@ -20,7 +21,7 @@ const PostCard = (props) => {
 
     return (
         <Card sx={{ maxWidth: 345 }}>
-            <CardActionArea LinkComponent={Link} to="/details">
+            <CardActionArea LinkComponent={Link} to={`/details/${post.id}`}>
                 <CardHeader
                     avatar={
                         <Avatar alt={post.owner.firstName} src={post.owner.picture} />
@@ -49,7 +50,7 @@ const PostCard = (props) => {
                 {
                     post.tags.map(tag => {
                         return(
-                            <Button LinkComponent={Link} to={"/details"} size="small">{tag}</Button>
+                            <Button key={tag} LinkComponent={Link} to={"/details/"} size="small">{tag}</Button>
                         )
                     })
                 }
