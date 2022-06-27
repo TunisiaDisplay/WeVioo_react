@@ -19,7 +19,9 @@ const Detail = () => {
 
     const postId = params.id;
     const [postDetails, setPostDetails] = useState({});
-    const [reload, setReload] = useState(0);
+    //const [reload, setReload] = useState(0);
+    const [commentsList, setCommentsList] = useState([]);
+
 
     useEffect(() => {
         const getPost = async () => {
@@ -30,13 +32,26 @@ const Detail = () => {
             console.log(JSON.stringify(response.data));
         }
 
+        const getComments = async () => {
+            const response = await dummyApi.get(`/post/${postId}/comment`);
+
+            // set state with the result
+            setCommentsList(response.data.data);
+            console.log(JSON.stringify(response.data.data));
+        }
+
         getPost()
             .catch(function (error) {
                 console.log(error);
             });
 
+        getComments()
+            .catch(function (error) {
+                console.log(error);
+            });
 
     }, [postId]);
+
 
     return (
         <Container maxWidth="lg">
@@ -54,10 +69,14 @@ const Detail = () => {
                     :
                     <>
                         <PostDetails details={postDetails} />
-                        <ListPostComments id={postDetails.id} reload={reload} />
+
+                        <ListPostComments
+                            comments={commentsList} />
+
                         <SendPostComment
                             id={postDetails.id}
-                            onSuccess={setReload}
+                            comments={commentsList}
+                            onSuccess={setCommentsList}
                         />
                     </>
             }

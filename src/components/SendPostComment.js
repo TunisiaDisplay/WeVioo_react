@@ -19,18 +19,23 @@ const SendPostComment = (props) => {
         //console.log(msg);
 
         const saveComment = async () => {
-            await dummyApi.post("/comment/create", {
+            let newMsg = await dummyApi.post("/comment/create", {
                 "message": msg,
                 "owner": "60d0fe4f5311236168a109ca",
                 "post": props.id
             });
 
-            setMsg("");
             console.log("comment added with success");
+            //console.log(newMsg.data);
 
             // simple solution to reload the list of comment on parent componet
             // for better UX
-            props.onSuccess(Math.random()*100);
+            // add the new msg @ the first position to be listed
+            props.onSuccess([newMsg.data,...props.comments]);
+
+            // reset the message text field
+            setMsg("");
+
         }
 
         saveComment()
