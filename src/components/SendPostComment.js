@@ -21,7 +21,7 @@ const SendPostComment = (props) => {
         const saveComment = async () => {
             let newMsg = await dummyApi.post("/comment/create", {
                 "message": msg,
-                "owner": "60d0fe4f5311236168a109ca",
+                "owner": props.userId,
                 "post": props.id
             });
 
