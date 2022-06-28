@@ -1,6 +1,6 @@
 import React from "react";
 import Stack from '@mui/material/Stack';
-import Paper from '@mui/material/Paper';
+import Chip from '@mui/material/Chip';
 
 
 const ListPostComments = (props) => {
@@ -9,15 +9,13 @@ const ListPostComments = (props) => {
         <Stack spacing={2}>
             {
                 !props.comments.length ?
-                    <Paper>
-                        List of comments is loading ...
-                    </Paper>
+                    <Chip
+                        label="List of comments is loading ..."
+                    />
                     :
                     props.comments.map(c => {
                         return (
-                            <Paper key={c.id}>
-                                {c.message}
-                            </Paper>
+                            <Chip label={c.message} />
                         )
                     })
             }
