@@ -39,6 +39,7 @@ const PostCard = (props) => {
                     height="140"
                     image={post.image || "/img/contemplative-reptile.jpg"}
                     alt="green iguana"
+                    loading="lazy"
                 />
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
