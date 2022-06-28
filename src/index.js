@@ -7,28 +7,31 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Detail from './pages/Detail';
+import { AuthContextProvider } from './store/auth-context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="details" element={<Detail />}>
-          <Route path=":id" element={<Detail />} />
-        </Route>
+    <AuthContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} />
+          <Route path="details" element={<Detail />}>
+            <Route path=":id" element={<Detail />} />
+          </Route>
 
-        <Route
-          path="*"
-          element={
-            <main style={{ padding: "1rem" }}>
-              <p>There's nothing here!</p>
-            </main>
-          }
-        />
+          <Route
+            path="*"
+            element={
+              <main style={{ padding: "1rem" }}>
+                <p>There's nothing here!</p>
+              </main>
+            }
+          />
 
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </AuthContextProvider>
   </React.StrictMode>
 );
 

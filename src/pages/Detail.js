@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 import { Container } from "@mui/system";
@@ -10,6 +10,7 @@ import PostDetails from "../components/PostDetails";
 import Loading from "../components/Loading";
 import ListPostComments from "../components/ListPostComments";
 import SendPostComment from "../components/SendPostComment";
+import AuthContext from "../store/auth-context";
 
 
 const Detail = () => {
@@ -19,8 +20,11 @@ const Detail = () => {
 
     const postId = params.id;
     const [postDetails, setPostDetails] = useState({});
-    //const [reload, setReload] = useState(0);
     const [commentsList, setCommentsList] = useState([]);
+
+    const ctxUser = useContext(AuthContext);
+
+
 
 
     useEffect(() => {
@@ -75,6 +79,7 @@ const Detail = () => {
 
                         <SendPostComment
                             id={postDetails.id}
+                            userId={ctxUser.userId}
                             comments={commentsList}
                             onSuccess={setCommentsList}
                         />
