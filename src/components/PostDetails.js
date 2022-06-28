@@ -3,6 +3,8 @@ import React from "react";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 
+import Chip from '@mui/material/Chip';
+
 
 
 const PostDetails = (props) => {
@@ -34,7 +36,7 @@ const PostDetails = (props) => {
                 {
                     postDetails.tags.map(tag => {
                         return (
-                            <text>{tag}</text>
+                            <Chip key={tag} label={tag} />
                         )
                     })
                 }
