@@ -20,7 +20,7 @@ const PostDetails = (props) => {
             </Grid>
             <Grid item xs={12}>
                 <Paper>
-                    <img src={postDetails.image} alt="" />
+                    <img loading="lazy" src={postDetails.image} alt="" />
                 </Paper>
             </Grid>
             <Grid item xs={6}>
